@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="NailArt Studio - עיצוב ציפורניים מקצועי. בחרי סגנון, חשבי מחיר וקבעי תור בקלות.">
+  <title>NailArt Studio</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-logo">💅 NailArt Studio</div>
+    <ul class="nav-links">
+      <li><a href="#gallery">סגנונות</a></li>
+      <li><a href="#portfolio">גלריה</a></li>
+      <li><a href="#priceCalc">מחיר</a></li>
+      <li><a href="#contact">תור</a></li>
+    </ul>
+    <button class="nav-toggle" onclick="toggleMenu()">☰</button>
+  </nav>
+
+  <header>
+    <div class="header-content">
+      <h1>NailArt Studio</h1>
+      <p>בחרי את העיצוב שלך, קבעי תור ותהני מהמניקור המושלם!</p>
+      <a href="#gallery" class="cta-btn">התחילי עכשיו</a>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- בחירת סגנון -->
+    <section id="gallery">
+      <h2>בחרי סגנון</h2>
+      <p class="section-subtitle">לחצי על הסגנון שאת אוהבת</p>
+      <div class="styles-grid">
+        <div class="style-card" onclick="selectStyle('French')">
+          <img src="french.png" alt="French Style">
+          <p>French</p>
+        </div>
+        <div class="style-card" onclick="selectStyle('Glitter')">
+          <img src="glitter.png" alt="Glitter Style">
+          <p>Glitter</p>
+        </div>
+        <div class="style-card" onclick="selectStyle('Colorful')">
+          <img src="colorful.png" alt="Colorful Style">
+          <p>Colorful</p>
+        </div>
+      </div>
+      <p id="chosenStyle" class="chosen-style">עדיין לא נבחר סגנון</p>
+    </section>
+
+    <!-- גלריית עבודות -->
+    <section id="portfolio">
+      <h2>גלריית עבודות</h2>
+      <p class="section-subtitle">חלק מהעבודות שלנו</p>
+      <div class="portfolio-grid">
+        <div class="work-card">
+          <img src="design1.png" alt="עיצוב 1">
+          <p>עיצוב קלאסי</p>
+        </div>
+        <div class="work-card">
+          <img src="design2.png" alt="עיצוב 2">
+          <p>עיצוב אלגנטי</p>
+        </div>
+        <div class="work-card">
+          <img src="design3.png" alt="עיצוב 3">
+          <p>עיצוב צבעוני</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- מחשבון מחיר -->
+    <section id="priceCalc">
+      <h2>מחשבון מחיר</h2>
+      <p class="section-subtitle">בחרי טיפול וראי את המחיר המשוער</p>
+      <div class="price-calc-box">
+        <label for="serviceType">בחרי סוג טיפול:</label>
+        <select id="serviceType">
+          <option value="0">בחרי...</option>
+          <option value="80">מניקור בסיסי - 80 ₪</option>
+          <option value="120">מניקור + לק ג'ל - 120 ₪</option>
+          <option value="180">בניית ציפורניים - 180 ₪</option>
+        </select>
+        <button onclick="calcPrice()">חשבי מחיר</button>
+        <p id="result" class="price-result"></p>
+      </div>
+    </section>
+
+    <!-- קביעת תור -->
+    <section id="contact">
+      <h2>קביעת תור</h2>
+      <p class="section-subtitle">מלאי את הפרטים ונחזור אלייך בהקדם</p>
+      <form id="appointmentForm" onsubmit="sendAppointment(event)">
+        <label for="name">שם מלא:</label>
+        <input type="text" id="name" placeholder="הכניסי שם מלא" required>
+
+        <label for="phone">טלפון:</label>
+        <input type="tel" id="phone" placeholder="050-0000000">
+
+        <label for="date">תאריך מועדף:</label>
+        <input type="date" id="date" required>
+
+        <label for="styleSelect">סגנון ציפורניים:</label>
+        <select id="styleSelect">
+          <option value="">בחרי סגנון...</option>
+          <option value="French">French</option>
+          <option value="Glitter">Glitter</option>
+          <option value="Colorful">Colorful</option>
+        </select>
+
+        <label for="note">הערות נוספות:</label>
+        <textarea id="note" placeholder="כתבי כאן הערות..."></textarea>
+
+        <button type="submit">שלחי בקשה</button>
+      </form>
+      <div id="confirmMsg" class="confirm-msg"></div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <p>💅 NailArt Studio &copy; 2025</p>
+      <p>עיצוב ציפורניים מקצועי | יצירת קשר: nailart@example.com</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
