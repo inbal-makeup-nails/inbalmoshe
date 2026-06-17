@@ -9,89 +9,45 @@ body {
   flex-direction: column;
 }
 
-/* ===== NAVBAR ===== */
-.navbar {
+/* ===== TOPBAR (עמודים פנימיים) ===== */
+.topbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   background: #fff;
-  padding: 14px 40px;
-  box-shadow: 0 2px 10px rgba(255,182,193,0.4);
+  padding: 14px 30px;
+  box-shadow: 0 2px 8px rgba(255,182,193,0.3);
   position: sticky;
   top: 0;
   z-index: 100;
 }
 
-.nav-logo {
-  font-size: 1.4rem;
+.back-home {
+  text-decoration: none;
+  color: #ff8fab;
+  font-weight: 700;
+  font-size: 0.95rem;
+  transition: color 0.2s;
+}
+
+.back-home:hover { color: #e75480; }
+
+.topbar-logo {
+  font-size: 1.2rem;
   font-weight: 700;
   color: #ff8fab;
-  text-decoration: none;
-}
-
-.nav-links {
-  list-style: none;
-  display: flex;
-  gap: 4px;
-}
-
-.nav-links a {
-  text-decoration: none;
-  color: #666;
-  font-weight: 600;
-  font-size: 0.95rem;
-  padding: 8px 16px;
-  border-radius: 20px;
-  transition: all 0.2s;
-  display: block;
-}
-
-.nav-links a:hover  { color: #ff8fab; background: #fff5f9; }
-.nav-links a.active { background: linear-gradient(135deg,#ffb6c1,#ff8fab); color: #fff; }
-
-.nav-toggle {
-  display: none;
-  background: none;
-  border: none;
-  font-size: 1.6rem;
-  cursor: pointer;
-  color: #ff8fab;
-  padding: 0;
 }
 
 /* ===== HOME PAGE ===== */
-header {
-  background: linear-gradient(135deg,#ffb6c1,#ff8fab);
-  padding: 90px 20px 70px;
+.home-header {
+  background: linear-gradient(135deg, #ffb6c1, #ff8fab);
+  padding: 70px 20px 50px;
   color: #fff;
   text-align: center;
 }
 
-.header-content h1 { font-size: 3rem; margin-bottom: 14px; text-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-.header-content p  { font-size: 1.2rem; margin-bottom: 32px; opacity: 0.95; }
-
-.hero-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-
-.btn-hero {
-  display: inline-block;
-  background: #fff;
-  color: #ff8fab;
-  padding: 13px 34px;
-  border-radius: 30px;
-  font-weight: 700;
-  font-size: 1.05rem;
-  text-decoration: none;
-  transition: transform 0.2s, box-shadow 0.2s;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.12);
-}
-
-.btn-hero:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.18); }
-
-.btn-hero.btn-outline {
-  background: transparent;
-  border: 2px solid #fff;
-  color: #fff;
-}
+.home-header h1 { font-size: 3rem; margin-bottom: 12px; text-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+.home-header p  { font-size: 1.2rem; opacity: 0.95; }
 
 .home-main { flex: 1; }
 
