@@ -16,7 +16,7 @@
       <li><a href="#gallery">סגנונות</a></li>
       <li><a href="#portfolio">גלריה</a></li>
       <li><a href="#priceCalc">מחיר</a></li>
-      <li><a href="#contact">תור</a></li>
+      <li><a href="#booking">תור</a></li>
     </ul>
     <button class="nav-toggle" onclick="toggleMenu()">☰</button>
   </nav>
@@ -89,34 +89,58 @@
       </div>
     </section>
 
-    <!-- קביעת תור -->
-    <section id="contact">
+    <!-- קביעת תור עם יומן -->
+    <section id="booking">
       <h2>קביעת תור</h2>
-      <p class="section-subtitle">מלאי את הפרטים ונחזור אלייך בהקדם</p>
-      <form id="appointmentForm" onsubmit="sendAppointment(event)">
-        <label for="name">שם מלא:</label>
-        <input type="text" id="name" placeholder="הכניסי שם מלא" required>
+      <p class="section-subtitle">בחרי תאריך ושעה פנויה</p>
 
-        <label for="phone">טלפון:</label>
-        <input type="tel" id="phone" placeholder="050-0000000">
+      <!-- שלב 1: יומן -->
+      <div id="step1" class="booking-step">
+        <div class="calendar-header">
+          <button class="cal-nav" onclick="changeMonth(-1)">&#8250;</button>
+          <span id="calMonthLabel"></span>
+          <button class="cal-nav" onclick="changeMonth(1)">&#8249;</button>
+        </div>
+        <div class="calendar-weekdays">
+          <span>א</span><span>ב</span><span>ג</span><span>ד</span><span>ה</span><span>ו</span><span>ש</span>
+        </div>
+        <div class="calendar-grid" id="calendarGrid"></div>
+      </div>
 
-        <label for="date">תאריך מועדף:</label>
-        <input type="date" id="date" required>
+      <!-- שלב 2: בחירת שעה -->
+      <div id="step2" class="booking-step hidden">
+        <h3 id="selectedDateLabel"></h3>
+        <p class="section-subtitle">בחרי שעה פנויה</p>
+        <div class="time-slots" id="timeSlots"></div>
+        <button class="back-btn" onclick="goToStep(1)">← חזרה ליומן</button>
+      </div>
 
-        <label for="styleSelect">סגנון ציפורניים:</label>
-        <select id="styleSelect">
-          <option value="">בחרי סגנון...</option>
-          <option value="French">French</option>
-          <option value="Glitter">Glitter</option>
-          <option value="Colorful">Colorful</option>
-        </select>
+      <!-- שלב 3: טופס -->
+      <div id="step3" class="booking-step hidden">
+        <div class="booking-summary" id="bookingSummary"></div>
+        <form id="appointmentForm" onsubmit="sendAppointment(event)">
+          <label for="name">שם מלא:</label>
+          <input type="text" id="name" placeholder="הכניסי שם מלא" required>
 
-        <label for="note">הערות נוספות:</label>
-        <textarea id="note" placeholder="כתבי כאן הערות..."></textarea>
+          <label for="phone">טלפון:</label>
+          <input type="tel" id="phone" placeholder="050-0000000">
 
-        <button type="submit">שלחי בקשה</button>
-      </form>
-      <div id="confirmMsg" class="confirm-msg"></div>
+          <label for="styleSelect">סגנון ציפורניים:</label>
+          <select id="styleSelect">
+            <option value="">בחרי סגנון...</option>
+            <option value="French">French</option>
+            <option value="Glitter">Glitter</option>
+            <option value="Colorful">Colorful</option>
+          </select>
+
+          <label for="note">הערות נוספות:</label>
+          <textarea id="note" placeholder="כתבי כאן הערות..."></textarea>
+
+          <button type="submit">אשרי תור</button>
+        </form>
+        <button class="back-btn" onclick="goToStep(2)">← חזרה לשעות</button>
+        <div id="confirmMsg" class="confirm-msg"></div>
+      </div>
     </section>
 
   </main>
