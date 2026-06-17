@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NailArt Studio - מחיר</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-logo">💅 NailArt Studio</div>
+    <ul class="nav-links">
+      <li><a href="index.html">בית</a></li>
+      <li><a href="styles.html">סגנונות</a></li>
+      <li><a href="portfolio.html">גלריה</a></li>
+      <li><a href="price.html" class="active">מחיר</a></li>
+      <li><a href="booking.html">קביעת תור</a></li>
+    </ul>
+    <button class="nav-toggle" onclick="toggleMenu()">☰</button>
+  </nav>
+
+  <main class="page-main">
+    <div class="page-header">
+      <h2>מחשבון מחיר</h2>
+      <p class="section-subtitle">בחרי טיפול וראי את המחיר המשוער</p>
+    </div>
+
+    <div class="price-calc-box">
+      <label for="serviceType">בחרי סוג טיפול:</label>
+      <select id="serviceType">
+        <option value="0">בחרי...</option>
+        <option value="80">מניקור בסיסי - 80 ₪</option>
+        <option value="120">מניקור + לק ג'ל - 120 ₪</option>
+        <option value="180">בניית ציפורניים - 180 ₪</option>
+      </select>
+      <button onclick="calcPrice()">חשבי מחיר</button>
+      <p id="result" class="price-result"></p>
+
+      <div class="price-table">
+        <div class="price-row">
+          <span class="price-name">מניקור בסיסי</span>
+          <span class="price-val">80 ₪</span>
+        </div>
+        <div class="price-row">
+          <span class="price-name">מניקור + לק ג'ל</span>
+          <span class="price-val">120 ₪</span>
+        </div>
+        <div class="price-row">
+          <span class="price-name">בניית ציפורניים</span>
+          <span class="price-val">180 ₪</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-action">
+      <a href="booking.html" class="btn-action">קבעי תור עכשיו ←</a>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <p>💅 NailArt Studio &copy; 2025</p>
+      <p>עיצוב ציפורניים מקצועי | nailart@example.com</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

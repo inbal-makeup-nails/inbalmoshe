@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NailArt Studio - סגנונות</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-logo">💅 NailArt Studio</div>
+    <ul class="nav-links">
+      <li><a href="index.html">בית</a></li>
+      <li><a href="styles.html" class="active">סגנונות</a></li>
+      <li><a href="portfolio.html">גלריה</a></li>
+      <li><a href="price.html">מחיר</a></li>
+      <li><a href="booking.html">קביעת תור</a></li>
+    </ul>
+    <button class="nav-toggle" onclick="toggleMenu()">☰</button>
+  </nav>
+
+  <main class="page-main">
+    <div class="page-header">
+      <h2>סגנונות ציפורניים</h2>
+      <p class="section-subtitle">לחצי על הסגנון שאת אוהבת</p>
+    </div>
+
+    <div class="styles-grid">
+      <div class="style-card" onclick="selectStyle('French', this)">
+        <img src="french.png" alt="French Style">
+        <p>French</p>
+      </div>
+      <div class="style-card" onclick="selectStyle('Glitter', this)">
+        <img src="glitter.png" alt="Glitter Style">
+        <p>Glitter</p>
+      </div>
+      <div class="style-card" onclick="selectStyle('Colorful', this)">
+        <img src="colorful.png" alt="Colorful Style">
+        <p>Colorful</p>
+      </div>
+    </div>
+
+    <p id="chosenStyle" class="chosen-style"></p>
+    <div class="page-action">
+      <a href="booking.html" class="btn-action">קבעי תור עם הסגנון הנבחר ←</a>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <p>💅 NailArt Studio &copy; 2025</p>
+      <p>עיצוב ציפורניים מקצועי | nailart@example.com</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

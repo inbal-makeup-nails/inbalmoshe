@@ -1,16 +1,4 @@
-// ===== ניווט בין עמודים =====
-function showPage(pageId) {
-  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
-  document.getElementById("page-" + pageId).classList.add("active");
-
-  document.querySelectorAll(".nav-links a").forEach(a => {
-    a.classList.toggle("active", a.dataset.page === pageId);
-  });
-
-  document.querySelector(".nav-links").classList.remove("open");
-  window.scrollTo({ top: 0, behavior: "smooth" });
-}
-
+// ===== תפריט נייד =====
 function toggleMenu() {
   document.querySelector(".nav-links").classList.toggle("open");
 }
@@ -20,8 +8,6 @@ function selectStyle(style, card) {
   document.querySelectorAll(".style-card").forEach(c => c.classList.remove("selected"));
   card.classList.add("selected");
   document.getElementById("chosenStyle").innerText = "נבחר סגנון: " + style;
-  const s = document.getElementById("styleSelect");
-  if (s) s.value = style;
 }
 
 // ===== מחיר =====
@@ -40,26 +26,15 @@ function calcPrice() {
     : "בחרי טיפול קודם";
 }
 
-// ===== הגדרות יומן =====
+// ===== יומן - נתונים =====
 const HOURS = ["09:00","10:00","11:00","12:00","14:00","15:00","16:00","17:00"];
-const DAY_NAMES = ["א׳","ב׳","ג׳","ד׳","ה׳","ו׳","ש׳"];
 const ADMIN_PASSWORD = "1234";
 
 let currentYear, currentMonth, selectedDate = null, selectedTime = null;
 
-// ===== שמירה ב-localStorage =====
-function getWorkingDays() {
-  const saved = localStorage.getItem("workingDays");
-  return saved ? JSON.parse(saved) : [0, 1, 2, 3, 4]; // א-ה כברירת מחדל
-}
-
-function getBlockedDates() {
-  return JSON.parse(localStorage.getItem("blockedDates") || "[]");
-}
-
-function getBookedSlots() {
-  return JSON.parse(localStorage.getItem("bookedSlots") || "{}");
-}
+function getWorkingDays()  { return JSON.parse(localStorage.getItem("workingDays")  || "[0,1,2,3,4]"); }
+function getBlockedDates() { return JSON.parse(localStorage.getItem("blockedDates") || "[]"); }
+function getBookedSlots()  { return JSON.parse(localStorage.getItem("bookedSlots")  || "{}"); }
 
 function bookSlot(dateStr, time) {
   const booked = getBookedSlots();
@@ -68,7 +43,6 @@ function bookSlot(dateStr, time) {
   localStorage.setItem("bookedSlots", JSON.stringify(booked));
 }
 
-// ===== לוגיקת זמינות =====
 function toDateStr(date) {
   return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,"0")}-${String(date.getDate()).padStart(2,"0")}`;
 }
@@ -80,25 +54,19 @@ function toHebrewDate(dateStr) {
 }
 
 function getDayStatus(date) {
-  const today = new Date();
-  today.setHours(0,0,0,0);
+  const today = new Date(); today.setHours(0,0,0,0);
   if (date < today) return "past";
-
   const dateStr = toDateStr(date);
-  const workingDays = getWorkingDays();
-  const blockedDates = getBlockedDates();
-
-  if (!workingDays.includes(date.getDay())) return "unavailable";
-  if (blockedDates.includes(dateStr)) return "unavailable";
-
+  if (!getWorkingDays().includes(date.getDay())) return "unavailable";
+  if (getBlockedDates().includes(dateStr)) return "unavailable";
   const bookedCount = (getBookedSlots()[dateStr] || []).length;
   if (bookedCount >= HOURS.length) return "full";
-
   return "available";
 }
 
-// ===== יומן =====
+// ===== יומן - תצוגה =====
 function initCalendar() {
+  if (!document.getElementById("calendarGrid")) return;
   const now = new Date();
   currentYear = now.getFullYear();
   currentMonth = now.getMonth();
@@ -119,11 +87,9 @@ function renderCalendar() {
   const grid = document.getElementById("calendarGrid");
   grid.innerHTML = "";
 
-  const today = new Date();
-  today.setHours(0,0,0,0);
-
+  const today = new Date(); today.setHours(0,0,0,0);
   const firstDay = new Date(currentYear, currentMonth, 1).getDay();
-  const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+  const daysInMonth = new Date(currentYear, currentMonth+1, 0).getDate();
 
   for (let i = 0; i < firstDay; i++) {
     grid.appendChild(document.createElement("div")).className = "cal-day";
@@ -137,13 +103,9 @@ function renderCalendar() {
     const div = document.createElement("div");
     div.textContent = d;
     div.className = "cal-day " + status;
-
     if (toDateStr(date) === toDateStr(today)) div.classList.add("today");
     if (selectedDate === dateStr) div.classList.add("selected");
-
-    if (status === "available") {
-      div.onclick = () => selectDate(dateStr);
-    }
+    if (status === "available") div.onclick = () => selectDate(dateStr);
 
     grid.appendChild(div);
   }
@@ -162,19 +124,13 @@ function renderTimeSlots(dateStr) {
   const booked = getBookedSlots()[dateStr] || [];
   const container = document.getElementById("timeSlots");
   container.innerHTML = "";
-
   HOURS.forEach(time => {
     const btn = document.createElement("button");
     btn.textContent = time;
     btn.type = "button";
-    btn.className = "time-slot";
-
-    if (booked.includes(time)) {
-      btn.classList.add("booked");
-      btn.disabled = true;
-    } else {
-      btn.onclick = () => selectTime(time, btn);
-    }
+    btn.className = "time-slot" + (booked.includes(time) ? " booked" : "");
+    btn.disabled = booked.includes(time);
+    if (!booked.includes(time)) btn.onclick = () => selectTime(time, btn);
     container.appendChild(btn);
   });
 }
@@ -219,24 +175,12 @@ function sendAppointment(e) {
     confirmMsg.innerHTML = "";
     renderCalendar();
     goToStep(1);
-  }, 4000);
+  }, 4500);
 }
 
-// ===== פאנל אדמין =====
-let logoClickCount = 0;
-
-document.getElementById("navLogo").addEventListener("click", () => {
-  logoClickCount++;
-  if (logoClickCount >= 5) {
-    logoClickCount = 0;
-    showPage("admin");
-    document.querySelectorAll(".nav-links a").forEach(a => a.classList.remove("active"));
-  }
-});
-
+// ===== אדמין =====
 function adminLogin() {
-  const pass = document.getElementById("adminPass").value;
-  if (pass === ADMIN_PASSWORD) {
+  if (document.getElementById("adminPass").value === ADMIN_PASSWORD) {
     document.getElementById("adminLogin").classList.add("hidden");
     document.getElementById("adminPanel").classList.remove("hidden");
     renderAdminPanel();
@@ -249,7 +193,7 @@ function adminLogout() {
   document.getElementById("adminLogin").classList.remove("hidden");
   document.getElementById("adminPanel").classList.add("hidden");
   document.getElementById("adminPass").value = "";
-  showPage("home");
+  window.location.href = "index.html";
 }
 
 function renderAdminPanel() {
@@ -258,97 +202,81 @@ function renderAdminPanel() {
   renderAppointmentsList();
 }
 
-// ימי עבודה
 function renderWorkingDays() {
   const working = getWorkingDays();
   const names = ["ראשון","שני","שלישי","רביעי","חמישי","שישי","שבת"];
   const container = document.getElementById("workingDaysGrid");
+  if (!container) return;
   container.innerHTML = "";
-
   names.forEach((name, i) => {
     const btn = document.createElement("button");
     btn.textContent = name;
     btn.type = "button";
     btn.className = "day-toggle" + (working.includes(i) ? " active" : "");
-    btn.onclick = () => { btn.classList.toggle("active"); };
+    btn.onclick = () => btn.classList.toggle("active");
     container.appendChild(btn);
   });
 }
 
 function saveWorkingDays() {
-  const buttons = document.querySelectorAll(".day-toggle");
   const working = [];
-  buttons.forEach((btn, i) => { if (btn.classList.contains("active")) working.push(i); });
+  document.querySelectorAll(".day-toggle").forEach((btn, i) => {
+    if (btn.classList.contains("active")) working.push(i);
+  });
   localStorage.setItem("workingDays", JSON.stringify(working));
-  renderCalendar();
-  alert("ימי העבודה נשמרו!");
+  const msg = document.getElementById("savedMsg");
+  if (msg) { msg.textContent = "ימי העבודה נשמרו!"; setTimeout(() => msg.textContent = "", 2500); }
 }
 
-// חסימת תאריכים
 function blockDate() {
   const input = document.getElementById("blockDateInput");
   const dateStr = input.value;
   if (!dateStr) return;
-
   const blocked = getBlockedDates();
   if (!blocked.includes(dateStr)) {
     blocked.push(dateStr);
     localStorage.setItem("blockedDates", JSON.stringify(blocked));
     input.value = "";
     renderBlockedList();
-    renderCalendar();
   }
 }
 
 function unblockDate(dateStr) {
-  const blocked = getBlockedDates().filter(d => d !== dateStr);
-  localStorage.setItem("blockedDates", JSON.stringify(blocked));
+  localStorage.setItem("blockedDates", JSON.stringify(getBlockedDates().filter(d => d !== dateStr)));
   renderBlockedList();
-  renderCalendar();
 }
 
 function renderBlockedList() {
   const blocked = getBlockedDates();
   const container = document.getElementById("blockedList");
-  container.innerHTML = "";
-
-  if (blocked.length === 0) {
-    container.innerHTML = '<p class="no-data">אין תאריכים חסומים</p>';
-    return;
-  }
-
-  blocked.sort().forEach(dateStr => {
-    const div = document.createElement("div");
-    div.className = "blocked-item";
-    div.innerHTML = `<span>${toHebrewDate(dateStr)}</span>
-      <button class="remove-btn" onclick="unblockDate('${dateStr}')">✕</button>`;
-    container.appendChild(div);
-  });
+  if (!container) return;
+  container.innerHTML = blocked.length === 0
+    ? '<p class="no-data">אין תאריכים חסומים</p>'
+    : blocked.sort().map(d =>
+        `<div class="blocked-item"><span>${toHebrewDate(d)}</span><button class="remove-btn" onclick="unblockDate('${d}')">✕</button></div>`
+      ).join("");
 }
 
-// תורים שנקבעו
 function renderAppointmentsList() {
   const booked = getBookedSlots();
   const container = document.getElementById("appointmentsList");
-  container.innerHTML = "";
-
+  if (!container) return;
   const entries = Object.entries(booked)
     .flatMap(([date, times]) => times.map(t => ({ date, time: t })))
     .sort((a,b) => a.date.localeCompare(b.date) || a.time.localeCompare(b.time));
+  container.innerHTML = entries.length === 0
+    ? '<p class="no-data">אין תורים עדיין</p>'
+    : entries.map(({ date, time }) =>
+        `<div class="appt-item"><span>📅 ${toHebrewDate(date)}</span><span>🕐 ${time}</span></div>`
+      ).join("");
+}
 
-  if (entries.length === 0) {
-    container.innerHTML = '<p class="no-data">אין תורים עדיין</p>';
-    return;
+function clearAllAppointments() {
+  if (confirm("למחוק את כל התורים לצמיתות?")) {
+    localStorage.removeItem("bookedSlots");
+    renderAppointmentsList();
   }
-
-  entries.forEach(({ date, time }) => {
-    const div = document.createElement("div");
-    div.className = "appt-item";
-    div.innerHTML = `<span>📅 ${toHebrewDate(date)}</span><span>🕐 ${time}</span>`;
-    container.appendChild(div);
-  });
 }
 
 // ===== אתחול =====
 initCalendar();
-showPage("home");
