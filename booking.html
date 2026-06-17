@@ -61,12 +61,61 @@
           <label for="phone">טלפון:</label>
           <input type="tel" id="phone" placeholder="050-0000000">
 
-          <label for="styleSelect">סגנון ציפורניים:</label>
+          <label for="serviceSelect">סוג טיפול:</label>
+          <select id="serviceSelect" required>
+            <option value="">בחרי סוג טיפול...</option>
+            <option value="מניקור בסיסי - 80 ₪">מניקור בסיסי - 80 ₪</option>
+            <option value="מניקור + לק ג'ל - 120 ₪">מניקור + לק ג'ל - 120 ₪</option>
+            <option value="בניית ציפורניים - 180 ₪">בניית ציפורניים - 180 ₪</option>
+          </select>
+
+          <label for="styleSelect">עיצוב ציפורניים:</label>
           <select id="styleSelect">
-            <option value="">בחרי סגנון...</option>
-            <option value="French">French</option>
-            <option value="Glitter">Glitter</option>
-            <option value="Colorful">Colorful</option>
+            <option value="">בחרי עיצוב...</option>
+            <optgroup label="📸 מהאלבום שלנו">
+              <option>French Classic</option>
+              <option>Glitter Ombre</option>
+              <option>Colorful</option>
+              <option>עיצוב קלאסי</option>
+              <option>עיצוב אלגנטי</option>
+              <option>עיצוב צבעוני</option>
+            </optgroup>
+            <optgroup label="✨ קלאסי">
+              <option>Red Classic</option>
+              <option>Nude Natural</option>
+              <option>Black Matte</option>
+              <option>Burgundy Wine</option>
+              <option>Pure White</option>
+              <option>Dark Navy</option>
+            </optgroup>
+            <optgroup label="🌸 פסטל">
+              <option>Baby Pink</option>
+              <option>Baby Blue</option>
+              <option>Lavender</option>
+              <option>Mint Green</option>
+              <option>Peach Cream</option>
+              <option>Lilac Dream</option>
+              <option>Coral Reef</option>
+              <option>Dusty Rose</option>
+            </optgroup>
+            <optgroup label="🌅 אומברה">
+              <option>Sunset Ombre</option>
+              <option>Ocean Blue</option>
+              <option>Rose Gold</option>
+              <option>Berry Bliss</option>
+              <option>Forest Green</option>
+              <option>Rainbow</option>
+            </optgroup>
+            <optgroup label="💎 מיוחד">
+              <option>Marble</option>
+              <option>Gold Chrome</option>
+              <option>Holographic</option>
+              <option>Pink Glitter</option>
+              <option>Galaxy</option>
+              <option>Silver Chrome</option>
+              <option>Leopard Print</option>
+              <option>Geometric Lines</option>
+            </optgroup>
           </select>
 
           <label for="note">הערות נוספות:</label>

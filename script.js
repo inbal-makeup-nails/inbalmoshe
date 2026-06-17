@@ -159,9 +159,10 @@ function goToStep(n) {
 
 function sendAppointment(e) {
   e.preventDefault();
-  const name = document.getElementById("name").value.trim();
-  const style = document.getElementById("styleSelect").value;
-  const confirmMsg = document.getElementById("confirmMsg");
+  const name        = document.getElementById("name").value.trim();
+  const service     = document.getElementById("serviceSelect") ? document.getElementById("serviceSelect").value : "";
+  const style       = document.getElementById("styleSelect")  ? document.getElementById("styleSelect").value  : "";
+  const confirmMsg  = document.getElementById("confirmMsg");
 
   if (!selectedDate || !selectedTime) {
     confirmMsg.className = "confirm-msg error";
@@ -169,11 +170,19 @@ function sendAppointment(e) {
     return;
   }
 
+  if (!service) {
+    confirmMsg.className = "confirm-msg error";
+    confirmMsg.innerText = "אנא בחרי סוג טיפול";
+    return;
+  }
+
   bookSlot(selectedDate, selectedTime);
 
-  const styleTxt = style ? ` | סגנון: ${style}` : "";
+  const serviceTxt = `<br>🛠️ טיפול: <strong>${service}</strong>`;
+  const styleTxt   = style ? `<br>💅 עיצוב: <strong>${style}</strong>` : "";
+
   confirmMsg.className = "confirm-msg";
-  confirmMsg.innerHTML = `✅ תודה <strong>${name}</strong>!<br>התור נקבע ל-<strong>${toHebrewDate(selectedDate)}</strong> בשעה <strong>${selectedTime}</strong>${styleTxt} 💅`;
+  confirmMsg.innerHTML = `✅ תודה <strong>${name}</strong>!<br>📅 התור נקבע ל-<strong>${toHebrewDate(selectedDate)}</strong> בשעה <strong>${selectedTime}</strong>${serviceTxt}${styleTxt}`;
 
   document.getElementById("appointmentForm").reset();
   selectedDate = null;
@@ -183,7 +192,7 @@ function sendAppointment(e) {
     confirmMsg.innerHTML = "";
     renderCalendar();
     goToStep(1);
-  }, 4500);
+  }, 5000);
 }
 
 // ===== אדמין =====
