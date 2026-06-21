@@ -387,6 +387,14 @@ body {
 .price-row:nth-child(even) { background: #fff5f9; }
 .price-name { font-weight: 600; }
 .price-val  { color: #e75480; font-weight: 700; }
+.price-cat-title {
+  background: linear-gradient(135deg, #ff8fab, #ffb3c6);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 10px 20px;
+  letter-spacing: 0.5px;
+}
 
 /* ===== BUTTONS ===== */
 button {
