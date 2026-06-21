@@ -404,6 +404,39 @@ body {
 }
 .instagram-card h3, .instagram-card p { color: #fff !important; }
 
+.color-swatches-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 12px;
+  padding: 10px 0;
+}
+.swatch-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 12px;
+  border: 2px solid transparent;
+  transition: all 0.2s;
+}
+.swatch-card:hover { border-color: #ff8fab; background: #fff5f9; transform: translateY(-2px); }
+.swatch-card.selected { border-color: #e75480; background: #fff0f5; }
+.swatch {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+}
+.swatch-card p {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #555;
+  text-align: center;
+  margin: 0;
+}
+
 .price-cat-title {
   background: linear-gradient(135deg, #ff8fab, #ffb3c6);
   color: #fff;
